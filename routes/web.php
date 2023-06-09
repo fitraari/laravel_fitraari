@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HospitalController;
+use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/welcome', function () {
+//     return view('welcome');
+// });
+
+Route::get('/login', function () {
+    return view('login', [
+        'title' => 'Login'
+    ]);
 });
+
+Route::get('/register', function () {
+    return view('register', [
+        'title' => 'Register'
+    ]);
+});
+
+Route::get('/', [HospitalController::class, 'index']);
+
+Route::get('/patient', [PatientController::class, 'index']);
