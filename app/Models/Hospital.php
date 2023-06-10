@@ -9,10 +9,19 @@ class Hospital extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama', 'alamat', 'email', 'telepon'];
+    protected $guarded = ['id'];
 
     public function patients()
     {
         return $this->hasMany(Patient::class);
+    }
+
+    public function scopeSearch($query, $keywords)
+    {
+        $query->when(
+            $keywords ?? false,
+            fn () =>
+            $query->where('nama', 'like', "%$keywords%")
+        );
     }
 }

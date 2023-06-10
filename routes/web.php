@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\HospitalController;
+use App\Http\Controllers\DashboardHospitalController;
+use App\Http\Controllers\DashboardPatientController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\PatientController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,5 +28,6 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
 
-Route::get('/', [HospitalController::class, 'index'])->middleware('auth');
-Route::get('/patient', [PatientController::class, 'index'])->middleware('auth');
+Route::get('/', fn () => view('dashboard.index', ['title' => 'Dashboard']))->middleware('auth');
+Route::resource('/dashboard/hospital', DashboardHospitalController::class)->middleware('auth');
+Route::resource('/dashboard/patient', DashboardPatientController::class)->middleware('auth');
