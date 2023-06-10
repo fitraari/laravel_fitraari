@@ -14,17 +14,26 @@
                         </div>
                     @endif
 
-                    <form action="" method="post">
+                    @if (session()->has('loginError'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill"></i> {{ session('loginError') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+
+                    <form action="/login" method="post">
+                        @csrf
 
                         <div class="form-floating">
-                            <input type="text" class="form-control rounded-top" id="username" placeholder="Username"
+                            <input type="text" class="form-control border border-0 border-bottom rounded-top"
+                                id="username" name="username" placeholder="Username" value="{{ old('username') }}"
                                 autofocus required>
                             <label for="username">Username</label>
                         </div>
 
                         <div class="form-floating">
-                            <input type="password" class="form-control rounded-bottom" id="password" placeholder="Password"
-                                required>
+                            <input type="password" class="form-control border border-0 border-bottom rounded-bottom"
+                                id="password" name="password" placeholder="Password" required>
                             <label for="password">Password</label>
                         </div>
 

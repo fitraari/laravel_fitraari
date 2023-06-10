@@ -6,11 +6,17 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
+            <div class="navbar-nav me-auto">
                 <a class="nav-link {{ $title === 'Hospital' ? 'active' : '' }}"
                     aria-current="page"href="/">Hospital</a>
                 <a class="nav-link {{ $title === 'Patient' ? 'active' : '' }}" aria-current="page"
                     href="/patient">Patient</a>
+            </div>
+            <div class="navbar-nav">
+                <form action="/logout" method="post">
+                    @csrf
+                    <button class="nav-link" type="submit"><i class="bi bi-box-arrow-right"></i> Logout</button>
+                </form>
             </div>
         </div>
     </div>
