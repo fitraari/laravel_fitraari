@@ -52,10 +52,12 @@
                     <div class="mb-3">
                         <label for="hospital" class="form-label">Rumah Sakit</label>
                         <select class="form-select @error('hospital_id') is-invalid @enderror" id="hospital"
-                            name="hospital_id">
+                            name="hospital_id" required>
                             <option value="" selected>-- Pilih Rumah Sakit --</option>
                             @foreach ($hospitals as $hospital)
-                                <option value="{{ $hospital->id }}">{{ $hospital->nama }}</option>
+                                <option value="{{ $hospital->id }}"
+                                    {{ old('hospital_id') == $hospital->id ? 'selected' : '' }}>{{ $hospital->nama }}
+                                </option>
                             @endforeach
                         </select>
                     </div>

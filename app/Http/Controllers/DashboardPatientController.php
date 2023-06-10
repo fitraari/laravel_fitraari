@@ -44,8 +44,8 @@ class DashboardPatientController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => 'required',
-            'alamat' => 'required',
+            'nama' => 'required|max:255',
+            'alamat' => 'required|max:255',
             'telepon' => 'required|digits_between:10,13',
             'hospital_id' => 'required'
         ]);
@@ -97,6 +97,8 @@ class DashboardPatientController extends Controller
      */
     public function destroy(Patient $patient)
     {
-        //
+        Patient::destroy($patient->id);
+
+        return redirect('/dashboard/patient')->with('deleteSuccess', 'Data berhasil dihapus!');
     }
 }

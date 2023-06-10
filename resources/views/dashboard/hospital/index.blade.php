@@ -5,6 +5,13 @@
         <div class="pt-3">
             <h3 class="border-bottom pb-3">Data {{ $title }}</h3>
 
+            @if (session()->has('deleteSuccess'))
+                <div class="alert alert-success alert-dismissible fade show w-50" role="alert">
+                    <i class="bi bi-check-circle-fill"></i> {{ session('deleteSuccess') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
             <a href="/dashboard/hospital/create" class="btn btn-success mt-3 mb-3"><i class="bi bi-plus"></i>Tambah Data</a>
 
             <form action="/dashboard/hospital">
@@ -42,7 +49,14 @@
                                     <td>{{ $hospital->telepon }}</td>
                                     <td>
                                         <a href="#"><i class="bi bi-pencil-square"></i></a>
-                                        <a href="#"><i class="bi bi-trash text-danger"></i></a>
+                                        <form action="/dashboard/hospital/{{ $hospital->id }}" method="post"
+                                            class="d-inline">
+                                            @method('delete')
+                                            @csrf
+                                            <button type="submit" class="btn btn-outline-danger btn-sm p-1"
+                                                onclick="return confirm('Yakin ingin menghapus rumah sakit {{ $hospital->nama }}')"><i
+                                                    class="bi bi-trash"></i></button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

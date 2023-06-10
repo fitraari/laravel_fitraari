@@ -5,6 +5,13 @@
         <div class="pt-3">
             <h3 class="border-bottom pb-3">Data {{ $title }}</h3>
 
+            @if (session()->has('deleteSuccess'))
+                <div class="alert alert-success alert-dismissible fade show w-50" role="alert">
+                    <i class="bi bi-check-circle-fill"></i> {{ session('deleteSuccess') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
             <div class="d-flex gap-3 mt-4 mb-3">
                 <a href="/dashboard/patient/create" class="btn btn-success"><i class="bi bi-plus"></i>Tambah
                     Data</a>
@@ -56,10 +63,17 @@
                                     <td>{{ $patient->nama }}</td>
                                     <td>{{ $patient->alamat }}</td>
                                     <td>{{ $patient->telepon }}</td>
-                                    <td>{{ $patient->hospital->nama }}</td>
+                                    <td>{{ $patient->hospital->nama ?? '-' }}</td>
                                     <td>
                                         <a href="#"><i class="bi bi-pencil-square"></i></a>
-                                        <a href="#"><i class="bi bi-trash text-danger"></i></a>
+                                        <form action="/dashboard/patient/{{ $patient->id }}" method="post"
+                                            class="d-inline">
+                                            @method('delete')
+                                            @csrf
+                                            <button type="submit" class="btn btn-outline-danger btn-sm p-1"
+                                                onclick="return confirm('Yakin ingin menghapus pasien {{ $patient->nama }}')"><i
+                                                    class="bi bi-trash"></i></button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
