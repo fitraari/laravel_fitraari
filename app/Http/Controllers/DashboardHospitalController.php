@@ -14,8 +14,8 @@ class DashboardHospitalController extends Controller
      */
     public function index()
     {
-        return view('dashboard.hospital', [
-            'title' => 'Hospital',
+        return view('dashboard.hospital.index', [
+            'title' => 'Rumah Sakit',
             'hospitals' => Hospital::search(request('search'))->paginate(10)
         ]);
     }
@@ -27,7 +27,9 @@ class DashboardHospitalController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.hospital.create', [
+            'title' => 'Tambah Data Rumah Sakit'
+        ]);
     }
 
     /**
@@ -38,7 +40,16 @@ class DashboardHospitalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required',
+            'alamat' => 'required',
+            'email' => 'required|email:dns',
+            'telepon' => 'required|digits_between:10,13'
+        ]);
+
+        Hospital::create($validatedData);
+
+        return redirect('/dashboard/hospital/create')->with('success', 'Data berhasil ditambahkan!');
     }
 
     /**
@@ -49,12 +60,11 @@ class DashboardHospitalController extends Controller
      */
     public function show(Hospital $hospital)
     {
-        return view('dashboard.patient', [
+        return view('dashboard.hospital.show', [
             'title' => $hospital->nama,
             'patients' => $hospital->patients,
             'hospitals' => Hospital::all()
         ]);
-        // return $hospital->patients;
     }
 
     /**

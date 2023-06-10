@@ -3,10 +3,9 @@
 @section('container')
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div class="pt-3">
-            <h3 class="border-bottom pb-3">Data Rumah Sakit</h3>
+            <h3 class="border-bottom pb-3">Data {{ $title }}</h3>
 
-            <button type="button" class="btn btn-success mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                    class="bi bi-plus"></i>Tambah Data</button>
+            <a href="/dashboard/hospital/create" class="btn btn-success mt-3 mb-3"><i class="bi bi-plus"></i>Tambah Data</a>
 
             <form action="/dashboard/hospital">
                 <div class="input-group mb-3 w-50">
@@ -52,25 +51,6 @@
                 </table>
             </div>
             {{ $hospitals->links() }}
-        </div>
-
-        <!-- Modal Tambah Data -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Form Tambah Data Rumah Sakit</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Simpan</button>
-                    </div>
-                </div>
-            </div>
         </div>
     </main>
 @endsection

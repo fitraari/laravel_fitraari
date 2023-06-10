@@ -9,20 +9,22 @@
         <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">
-                        <i class="bi bi-house-door"></i>
+                    <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" aria-current="page" href="/">
+                        <i class="bi bi-house-door{{ Request::is('/') ? '-fill' : '' }}"></i>
                         Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/dashboard/hospital">
-                        <i class="bi bi-hospital"></i>
-                        Hospital
+                    <a class="nav-link {{ Request::is('dashboard/hospital*') ? 'active' : '' }}"
+                        href="/dashboard/hospital">
+                        <i class="bi bi-hospital{{ Request::is('dashboard/hospital*') ? '-fill' : '' }}"></i>
+                        Rumah Sakit
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/dashboard/patient">
-                        <i class="bi bi-people"></i>
+                    <a class="nav-link {{ Request::is('dashboard/patient*') ? 'active' : '' }}"
+                        href="/dashboard/patient">
+                        <i class="bi bi-people{{ Request::is('dashboard/patient*') ? '-fill' : '' }}"></i>
                         Pasien
                     </a>
                 </li>

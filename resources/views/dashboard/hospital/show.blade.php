@@ -3,11 +3,12 @@
 @section('container')
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div class="pt-3">
-            <h3 class="border-bottom pb-3">Data Pasien</h3>
+            <h3 class="border-bottom pb-3">Data Pasien di {{ $title }}</h3>
 
             <div class="d-flex gap-3 mt-4 mb-3">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                        class="bi bi-plus"></i>Tambah Data</button>
+                <a href="/dashboard/patient/create" class="btn btn-success"><i class="bi bi-plus"></i>Tambah
+                    Data</a>
+
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -39,7 +40,6 @@
                             <th scope="col">Nama</th>
                             <th scope="col">Alamat</th>
                             <th scope="col">Telepon</th>
-                            <th scope="col">Rumah Sakit</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -55,7 +55,6 @@
                                     <td>{{ $patient->nama }}</td>
                                     <td>{{ $patient->alamat }}</td>
                                     <td>{{ $patient->telepon }}</td>
-                                    <td>{{ $patient->hospital->nama }}</td>
                                     <td>
                                         <a href="#"><i class="bi bi-pencil-square"></i></a>
                                         <a href="#"><i class="bi bi-trash text-danger"></i></a>
@@ -65,26 +64,6 @@
                         @endif
                     </tbody>
                 </table>
-            </div>
-            {{-- {{ $patients->links() }} --}}
-        </div>
-
-        <!-- Modal Tambah Data -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Form Tambah Pasien</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Simpan</button>
-                    </div>
-                </div>
             </div>
         </div>
     </main>

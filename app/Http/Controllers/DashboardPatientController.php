@@ -15,8 +15,8 @@ class DashboardPatientController extends Controller
      */
     public function index()
     {
-        return view('dashboard.patient', [
-            'title' => 'Patient',
+        return view('dashboard.patient.index', [
+            'title' => 'Pasien',
             'patients' => Patient::search(request('search'))->paginate(10),
             'hospitals' => Hospital::all()
         ]);
@@ -29,7 +29,10 @@ class DashboardPatientController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.patient.create', [
+            'title' => 'Tambah Data Pasien',
+            'hospitals' => Hospital::all()
+        ]);
     }
 
     /**
@@ -40,7 +43,16 @@ class DashboardPatientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required',
+            'alamat' => 'required',
+            'telepon' => 'required|digits_between:10,13',
+            'hospital_id' => 'required'
+        ]);
+
+        Patient::create($validatedData);
+
+        return redirect('/dashboard/patient/create')->with('success', 'Data berhasil ditambahkan!');
     }
 
     /**
