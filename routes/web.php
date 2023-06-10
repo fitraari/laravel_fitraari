@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\HospitalController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,17 +21,9 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/login', function () {
-    return view('login', [
-        'title' => 'Login'
-    ]);
-});
+Route::get('/login', [LoginController::class, 'index']);
 
-Route::get('/register', function () {
-    return view('register', [
-        'title' => 'Register'
-    ]);
-});
+Route::get('/register', [RegisterController::class, 'index']);
 
 Route::get('/', [HospitalController::class, 'index']);
 
