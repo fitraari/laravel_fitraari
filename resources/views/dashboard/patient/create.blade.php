@@ -1,4 +1,4 @@
-@extends('dashboard.index')
+@extends('dashboard.layouts.main')
 
 @section('container')
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -40,7 +40,7 @@
 
                     <div class="mb-3">
                         <label for="telepon" class="form-label">Telepon</label>
-                        <input type="number" class="form-control @error('telepon') is-invalid @enderror" id="telepon"
+                        <input type="text" class="form-control @error('telepon') is-invalid @enderror" id="telepon"
                             name="telepon" value="{{ old('telepon') }}" required>
                         @error('telepon')
                             <div class="invalid-feedback">

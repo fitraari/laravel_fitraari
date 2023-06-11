@@ -13,13 +13,14 @@
                     </div>
                 @endif
 
-                <form action="/dashboard/hospital" method="post">
+                <form action="/dashboard/patient/{{ $patient->id }}" method="post">
+                    @method('put')
                     @csrf
 
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama</label>
                         <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
-                            name="nama" value="{{ old('nama') }}" required>
+                            name="nama" value="{{ old('nama', $patient->nama) }}" required>
                         @error('nama')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -30,19 +31,8 @@
                     <div class="mb-3">
                         <label for="alamat" class="form-label">Alamat</label>
                         <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="alamat"
-                            name="alamat" value="{{ old('alamat') }}" required>
+                            name="alamat" value="{{ old('alamat', $patient->alamat) }}" required>
                         @error('alamat')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                            name="email" value="{{ old('email') }}" required>
-                        @error('email')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -52,12 +42,26 @@
                     <div class="mb-3">
                         <label for="telepon" class="form-label">Telepon</label>
                         <input type="text" class="form-control @error('telepon') is-invalid @enderror" id="telepon"
-                            name="telepon" value="{{ old('telepon') }}" required>
+                            name="telepon" value="{{ old('telepon', $patient->telepon) }}" required>
                         @error('telepon')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
                         @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="hospital" class="form-label">Rumah Sakit</label>
+                        <select class="form-select @error('hospital_id') is-invalid @enderror" id="hospital"
+                            name="hospital_id" required>
+                            <option value="" selected>-- Pilih Rumah Sakit --</option>
+                            @foreach ($hospitals as $hospital)
+                                <option value="{{ $hospital->id }}"
+                                    {{ old('hospital_id', $patient->hospital_id) == $hospital->id ? 'selected' : '' }}>
+                                    {{ $hospital->nama }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Simpan</button>

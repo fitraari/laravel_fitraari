@@ -46,7 +46,7 @@ class DashboardPatientController extends Controller
         $validatedData = $request->validate([
             'nama' => 'required|max:255',
             'alamat' => 'required|max:255',
-            'telepon' => 'required|digits_between:10,13',
+            'telepon' => 'required|numeric|digits_between:10,13',
             'hospital_id' => 'required'
         ]);
 
@@ -74,7 +74,11 @@ class DashboardPatientController extends Controller
      */
     public function edit(Patient $patient)
     {
-        //
+        return view('dashboard.patient.edit', [
+            'title' => 'Ubah Data Pasien',
+            'patient' => $patient,
+            'hospitals' => Hospital::all()
+        ]);
     }
 
     /**
@@ -86,7 +90,16 @@ class DashboardPatientController extends Controller
      */
     public function update(Request $request, Patient $patient)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required|max:255',
+            'alamat' => 'required|max:255',
+            'telepon' => 'required|numeric|digits_between:10,13',
+            'hospital_id' => 'required'
+        ]);
+
+        Patient::where('id', $patient->id)->update($validatedData);
+
+        return redirect("/dashboard/patient/$patient->id/edit")->with('success', 'Data berhasil diubah!');
     }
 
     /**
@@ -99,6 +112,6 @@ class DashboardPatientController extends Controller
     {
         Patient::destroy($patient->id);
 
-        return redirect('/dashboard/patient')->with('deleteSuccess', 'Data berhasil dihapus!');
+        return redirect('/dashboard/patient')->with('success', 'Data berhasil dihapus!');
     }
 }

@@ -44,7 +44,7 @@ class DashboardHospitalController extends Controller
             'nama' => 'required|max:255',
             'alamat' => 'required|max:255',
             'email' => 'required|email:dns|max:255',
-            'telepon' => 'required|digits_between:10,13'
+            'telepon' => 'required|numeric|digits_between:10,13'
         ]);
 
         Hospital::create($validatedData);
@@ -75,7 +75,10 @@ class DashboardHospitalController extends Controller
      */
     public function edit(Hospital $hospital)
     {
-        return $hospital;
+        return view('dashboard.hospital.edit', [
+            'title' => 'Ubah Data Rumah Sakit',
+            'hospital' => $hospital
+        ]);
     }
 
     /**
@@ -87,7 +90,16 @@ class DashboardHospitalController extends Controller
      */
     public function update(Request $request, Hospital $hospital)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required|max:255',
+            'alamat' => 'required|max:255',
+            'email' => 'required|email:dns|max:255',
+            'telepon' => 'required|numeric|digits_between:10,13'
+        ]);
+
+        Hospital::where('id', $hospital->id)->update($validatedData);
+
+        return redirect("/dashboard/hospital/$hospital->id/edit")->with('success', 'Data berhasil diubah!');
     }
 
     /**
@@ -100,6 +112,6 @@ class DashboardHospitalController extends Controller
     {
         Hospital::destroy($hospital->id);
 
-        return redirect('/dashboard/hospital')->with('deleteSuccess', 'Data berhasil dihapus!');
+        return redirect('/dashboard/hospital')->with('success', 'Data berhasil dihapus!');
     }
 }

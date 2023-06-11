@@ -27,7 +27,7 @@ class LoginController extends Controller
             return redirect()->intended('/');
         }
 
-        return back()->with('loginError', 'Gagal login!');
+        return back()->with('error', 'Gagal login!');
     }
 
     public function logout(Request $request)
